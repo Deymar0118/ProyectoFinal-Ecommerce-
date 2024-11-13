@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../Proyecto final (Ecommerce)/CSS/bootstrap.css">
+    <link rel="stylesheet" href="../Proyecto final (Ecommerce)/CSS/bootstrap-grid.css">
+    <link rel="stylesheet" href="../Proyecto final (Ecommerce)/CSS/bootstrap-reboot.css">
+    <link rel="stylesheet" href="../Proyecto final (Ecommerce)/CSS/bootstrap-utilities.css">
+    <link rel="stylesheet" href="../Proyecto final (Ecommerce)/CSS/Paleta_Colores_Propia.css">
+
+    <title>Mi Carrito</title>
+</head>
+<body>
+    <section> <!--Mis Productos-->
+        <div class="container">
+            <h1 class="text-center">Mis Productos</h1>
+            <p>
+                <a href="./Portada.html">Volver</a>
+            </p>
+            <ul id="ProductosDelCarrito"></ul>
+            <button id="Confirmacion" class="btn btn-primary mt-3">Confirmar Compra</button>
+        </div>
+
+        <script>
+            let Carrito = JSON.parse(localStorage.getItem('Carrito')) || [];
+
+            const ListaProductos = document.getElementById('ProductosDelCarrito');
+
+            Carrito.forEach((Item, index)=>{
+
+                const ListaItems = document.createElement('li');
+                ListaItems.textContent = `${Item.Nombre} x ${Item.quantity}`;
+
+                const Boton_Eliminar = document.createElement('button');
+                Boton_Eliminar.textContent = "Eliminar de mi carrito";
+                Boton_Eliminar.classList.add("btn", "btn-danger", "ml-2");
+
+                Boton_Eliminar.addEventListener('click', () => {
+                    Carrito.splice(index, 1);
+                    localStorage.setItem('Carrito', JSON.stringify(Carrito));
+                    window.location.reload();
+                });
+                ListaItems.appendChild(Boton_Eliminar);
+                ListaProductos.appendChild(ListaItems);
+            });
+
+            document.getElementById('Confirmacion').addEventListener('click', function() {
+                window.location.href = './Formulario.html';
+            });
+        </script>
+    </section>
+</body>
+</html>

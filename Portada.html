@@ -8,13 +8,18 @@
     <link rel="stylesheet" href="../Proyecto final (Ecommerce)/CSS/bootstrap-grid.css">
     <link rel="stylesheet" href="../Proyecto final (Ecommerce)/CSS/bootstrap-reboot.css">
     <link rel="stylesheet" href="../Proyecto final (Ecommerce)/CSS/bootstrap-utilities.css">
+    <link rel="stylesheet" href="../Proyecto final (Ecommerce)/CSS/Paleta_Colores_Propia.css">
     
     <title>Inicio</title>
 </head>
 <body>
+    <h1>Bienvenidos a EstudioMarket</h1>
+    <p>
+        <em>Lo mejor para tu educación, solo en EstudioMarket.</em>
+    </p>
     <main>
         <section> <!--Menu-->
-            <h1>Menu</h1>
+            <h2>Menu</h2>
             <ul>
                 <li><a href="../Proyecto final (Ecommerce)/Portada.html">Inicio</a></li>
                 <li><a href="../Proyecto final (Ecommerce)/Productos.html">Productos</a></li>
@@ -24,9 +29,32 @@
         </section>
 
         <section> <!--Mi carrito-->
-            <h1>Carrito de compras</h1>
+            <h2>Carrito de compras</h2>
+            <div id="ResumenCarrito">
+
+            </div>
             <p><a href="../Proyecto final (Ecommerce)/Mi_Carrito.html">Ver Más</a></p>
         </section>
     </main>
+
+    <script>
+        let Carrito = JSON.parse(localStorage.getItem('Carrito')) || [];
+
+        const ResumenCarrito = document.getElementById('ResumenCarrito');
+
+        if (Carrito.length > 0) {
+            let resumenHTML = "<ul>";
+            
+            Carrito.forEach(item => {
+                resumenHTML += `<li>${item.Nombre} x ${item.quantity} </li>`;
+            });
+
+            resumenHTML += "</ul>";
+
+            ResumenCarrito.innerHTML = `Productos en tu carrito: ${Carrito.length} - ${resumenHTML}`;
+        }else{
+            ResumenCarrito.innerHTML = "Tu carrito está vacío.";
+        }
+    </script>
 </body>
 </html>
